@@ -1,25 +1,36 @@
-const path = require('path');
-const {
-  override,
-  overrideDevServer,
-  addWebpackAlias,
-} = require('customize-cra');
-
-const overrideDevServerConfig = () => (configFunction) => {
-  
-  configFunction.historyApiFallback = {
-    rewrites: [
-      { from: /.*/, to: '/index.html' },
-    ],
-  }
-  return configFunction
-}
+const appName= require('./package.json').name
 
 module.exports = {
-  webpack: override(
-    addWebpackAlias({
-      '@': path.resolve(__dirname, 'src')
-    })
-  ),
-  devServer: overrideDevServer(overrideDevServerConfig())
-}
+  webpack: function override(config, env) {
+    config.output.library = `${appName}-[name]`;
+    config.output.libraryTarget = 'umd';
+    config.output.chunkLoadingGlobal = `webpackJsonp_${appName}`;
+    config.output.globalObject = 'window';
+
+    return config;
+  },
+  devServer: (configFunction) => {
+    return function (proxy, allowedHost) {
+      const config = configFunction(proxy, allowedHost);
+
+      config.headers = {
+        'Access-Control-Allow-Origin': '*',
+      };
+      config.open = false;
+      config.historyApiFallback = true;
+      config.hot = false;
+      // config.watchContentBase = false;
+      config.liveReload = false;
+
+      return config;
+    };
+  },
+  dev: {
+    proxyTable: {
+      '/onestop-management': {
+        target: 'https://dev-oop.advai.cn',
+        changeOrigin: true,
+      },
+    }
+  }
+};

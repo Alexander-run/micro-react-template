@@ -1,19 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './public-path'
+let root: any = null
+function render(props: any) {
+  const { container } = props;
+  root = ReactDOM.createRoot( 
+    container ? container.querySelector('#micro-app') : document.getElementById('micro-app')
+  );
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  )
+}
+// @ts-ignore
+if (!window.__POWERED_BY_QIANKUN__) {
+  render({});
+}
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+export async function bootstrap() {
+  console.log('[react16] react app bootstraped');
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+export async function mount(props: any) {
+  console.log('[react16] props from main framework');
+  render(props);
+}
+
+export async function unmount(props: any) {
+  console.log('react-app unmount')
+  root.unmount()  
+}
