@@ -6,7 +6,7 @@ let root: any = null
 function render(props: any) {
   const { container } = props;
   root = ReactDOM.createRoot( 
-    container ? container.querySelector('#micro-app') : document.getElementById('micro-app')
+    container ? container.querySelector('#one-stop-sub-react') : document.getElementById('one-stop-sub-react')
   );
   root.render(
     <React.StrictMode>
