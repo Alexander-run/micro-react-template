@@ -1,18 +1,11 @@
 import React from 'react';
 import logo from './logo192.png'
-import { BrowserRouter } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
+import router from './router'
+
 function App() {
   return (
-    <BrowserRouter basename={window.__POWERED_BY_QIANKUN__ ? '/reactSubApp' : '/'}>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <div>
-            react sub app
-          </div>
-        </header>
-      </div>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   );
 }
 
