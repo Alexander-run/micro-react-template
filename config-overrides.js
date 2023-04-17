@@ -24,13 +24,5 @@ module.exports = {
 
       return config;
     };
-  },
-  dev: {
-    proxyTable: {
-      '/onestop-management': {
-        target: 'https://dev-oop.advai.cn',
-        changeOrigin: true,
-      },
-    }
   }
 };
