@@ -14,7 +14,6 @@ function render(props: any) {
     </React.StrictMode>
   )
 }
-// @ts-ignore
 if (!window.__POWERED_BY_QIANKUN__) {
   render({});
 }
