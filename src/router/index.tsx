@@ -8,6 +8,7 @@ const routerOptions = {
 // create router with basename '/app'
 const router = createBrowserRouter([
   { path: "/index", element: <Home /> },
+  { path: "/", element: <Home />}
 ], routerOptions);
 
 export default router;
